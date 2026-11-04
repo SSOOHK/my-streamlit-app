@@ -3078,7 +3078,7 @@ def render_dashboard():
             checked = st.checkbox(
                 t["title"],
                 value=bool(t["done"]),
-                key="today_" + t["id"]
+                key="today_" + str(t["id"])
             )
 
             if checked != bool(t["done"]):
@@ -4148,7 +4148,7 @@ def render_tasks():
             checked = a.checkbox(
                 t["title"],
                 value=bool(t["done"]),
-                key="taskcheck_" + t["id"]
+                key="taskcheck_" + str(t["id"])
             )
 
             if checked != bool(t["done"]):
@@ -4162,7 +4162,7 @@ def render_tasks():
                 f"{t['owner']} · "
                 f"{t['due_date'] or '기한 미정'} "
                 f"{t['at_time'] or ''} · "
-                f"{t['kind']} · "
+                f"{t.get('kind', '업무')} · "
                 f"{t['priority']} 우선순위"
             )
 
@@ -4179,7 +4179,7 @@ def render_tasks():
                 "수정",
                 use_container_width=True
             ):
-                with st.form("edit_" + t["id"]):
+                with st.form("edit_" + str(t["id"])):
                     title = st.text_input(
                         "업무명",
                         value=t["title"]
@@ -4279,7 +4279,7 @@ def render_tasks():
 
                 if st.button(
                     "업무 삭제",
-                    key="del_" + t["id"]
+                    key="del_" + str(t["id"])
                 ):
                     remove_task(t["id"])
                     st.rerun()
